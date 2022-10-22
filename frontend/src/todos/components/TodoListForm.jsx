@@ -1,15 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
 export const TodoListForm = ({ todoList, saveTodoList }) => {
   const [todos, setTodos] = useState(todoList.todos)
+  let autosaveTimer = null
 
   const handleSubmit = (event) => {
     event.preventDefault()
     saveTodoList(todoList.id, { todos })
   }
+
+  useEffect(() => {
+    if (autosaveTimer)
+      clearTimeout(autosaveTimer)
+
+    autosaveTimer = setTimeout(() => saveTodoList(todoList.id, { todos }), 1000)
+
+    return () => clearTimeout(autosaveTimer)
+  }, [todos])
 
   return (
     <Card sx={{ margin: '0 1rem' }}>
