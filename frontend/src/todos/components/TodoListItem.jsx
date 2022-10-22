@@ -20,6 +20,8 @@ export const TodoListItem = ({ startName, index, updateTodo, deleteTodo }) => {
     autosaveTimer = null
   }
 
+  const isTimerRunning = () => autosaveTimer !== null
+
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
@@ -31,7 +33,12 @@ export const TodoListItem = ({ startName, index, updateTodo, deleteTodo }) => {
     return resetSaveTimer
   }, [name])
 
+  // Saves the todo list immediately if changes have been made to the
+  // current text field.
   const immediateUpdate = (name) => {
+    if (!isTimerRunning())
+      return
+
     resetSaveTimer()
     updateTodo(name)
   }
