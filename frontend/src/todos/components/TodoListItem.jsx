@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { TextField, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 
 export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => {
   const [todo, setTodo] = useState(initialTodo)
@@ -48,6 +50,12 @@ export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => 
       <Typography sx={{ margin: '8px' }} variant='h6'>
         {index + 1}
       </Typography>
+      <Button
+        sx={{ minWidth: '48px' }}
+        color='secondary'
+      >
+        {todo.done ? <CheckCircleOutlineIcon/> : <RadioButtonUncheckedIcon/>}
+      </Button>
       <TextField
         sx={{ flexGrow: 1, marginTop: '1rem' }}
         label='What to do?'
