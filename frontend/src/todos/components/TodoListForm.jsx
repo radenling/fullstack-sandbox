@@ -13,7 +13,6 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    saveTodoList(todoList.id, { todos })
   }
 
   return (
@@ -51,9 +50,6 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
               onClick={() => { setTodos(save([...todos, ''])) }}
             >
               Add Todo <AddIcon />
-            </Button>
-            <Button type='submit' variant='contained' color='primary'>
-              Save
             </Button>
           </CardActions>
         </form>
