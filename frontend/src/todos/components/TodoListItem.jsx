@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { TextField, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-export const TodoListItem = ({ startName, index, updateTodo, deleteTodo }) => {
-  const [name, setName] = useState(startName)
+export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => {
+  const [todo, setTodo] = useState(initialTodo)
   const firstRender = useRef(true)
 
   let autosaveTimer = null
@@ -29,18 +29,18 @@ export const TodoListItem = ({ startName, index, updateTodo, deleteTodo }) => {
     }
 
     resetSaveTimer();
-    startSaveTimer(() => updateTodo(name))
+    startSaveTimer(() => updateTodo(todo))
     return resetSaveTimer
-  }, [name])
+  }, [todo])
 
   // Saves the todo list immediately if changes have been made to the
   // current text field.
-  const immediateUpdate = (name) => {
+  const immediateUpdate = (todo) => {
     if (!isTimerRunning())
       return
 
     resetSaveTimer()
-    updateTodo(name)
+    updateTodo(todo)
   }
 
   return (
@@ -51,11 +51,11 @@ export const TodoListItem = ({ startName, index, updateTodo, deleteTodo }) => {
       <TextField
         sx={{ flexGrow: 1, marginTop: '1rem' }}
         label='What to do?'
-        value={name}
+        value={todo.name}
         onChange={(event) => {
-          setName(event.target.value)
+          setTodo({...todo, name: event.target.value})
         }}
-        onBlur={() => immediateUpdate(name)}
+        onBlur={() => immediateUpdate(todo)}
       />
       <Button
         sx={{ margin: '8px' }}
