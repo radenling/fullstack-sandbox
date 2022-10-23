@@ -33,7 +33,7 @@ export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => 
     resetSaveTimer();
     startSaveTimer(() => updateTodo(todo))
     return resetSaveTimer
-  }, [todo])
+  }, [todo.name])
 
   // Saves the todo list immediately if changes have been made to the
   // current text field.
@@ -45,6 +45,14 @@ export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => 
     updateTodo(todo)
   }
 
+  const toggleDone = () => {
+    setTodo((todo) => {
+      const nextTodo = { ...todo, done: !todo.done }
+      updateTodo(nextTodo)
+      return nextTodo
+    })
+  }
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Typography sx={{ margin: '8px' }} variant='h6'>
@@ -53,6 +61,7 @@ export const TodoListItem = ({ initialTodo, index, updateTodo, deleteTodo }) => 
       <Button
         sx={{ minWidth: '48px' }}
         color='secondary'
+        onClick={() => toggleDone()}
       >
         {todo.done ? <CheckCircleOutlineIcon/> : <RadioButtonUncheckedIcon/>}
       </Button>
