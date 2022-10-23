@@ -23,10 +23,10 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
           onSubmit={handleSubmit}
           style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
         >
-          {todos.map((name, index) => (
+          {todos.map((todo, index) => (
             <TodoListItem
               key={index}
-              startName={name}
+              initialTodo={todo}
               index={index}
               updateTodo={(value) => {
                 setTodos(save([
@@ -47,7 +47,7 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
             <Button
               type='button'
               color='primary'
-              onClick={() => { setTodos(save([...todos, ''])) }}
+              onClick={() => { setTodos(save([...todos, {name: '', done: false}])) }}
             >
               Add Todo <AddIcon />
             </Button>
